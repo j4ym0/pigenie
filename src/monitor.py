@@ -37,17 +37,19 @@ def energy_monitor_loop():
 
     time.sleep(APP_DELAY)
 
+def incoming(address, message):
+    print("Incoming from %s" % str(address))
+    print("Message %s" % str(message))
+    Logger.logMessage(message)
 
 if __name__ == "__main__":
 
     print("Starting energy monitor example")
 
     energenie.init()
+    energenie.discovery_auto()
 
-    # provide a default incoming message handler, useful for logging every message
-    def incoming(address, message):
-        print("\nIncoming from %s" % str(address))
-        Logger.logMessage(message)
+    # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
     print("Logging to file:%s" % Logger.LOG_FILENAME)
 
@@ -58,4 +60,3 @@ if __name__ == "__main__":
         energenie.finished()
 
 # END
-
