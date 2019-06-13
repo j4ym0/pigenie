@@ -30,16 +30,17 @@ def energy_monitor_loop():
     for d in energenie.registry.devices():
         print(d)
         try:
-            p = d.get_power()
-            print("Power: %s" % str(p))
+            p = d.get_battery_voltage()
+            print("Battery voltage: %s" % str(p))
         except:
             pass # Ignore it if can't provide a power
 
     time.sleep(APP_DELAY)
 
 def incoming(address, message):
-    print("Incoming from %s" % str(address))
-    print("Message %s" % str(message))
+    print("Handeling incoming from %s" % str(address))
+    c = energenie.Devices.DeviceFactory.get_device_from_id(address[1], address[2])
+    c.handle_message(message)
     Logger.logMessage(message)
 
 if __name__ == "__main__":
