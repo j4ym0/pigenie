@@ -23,6 +23,10 @@ except ImportError:
     from . import Registry
     from . import OpenThings
 
+try:
+	readin = raw_input # python 2
+except NameError:
+	readin = input # python 3
 
 registry   = None
 fsk_router = None
@@ -126,7 +130,7 @@ def ask(address, message):
     try:
         if message != None:
             print(message)
-        y = raw_input(MSG)
+        y = readin(MSG)
 
     except AttributeError:
         y = input(MSG)
