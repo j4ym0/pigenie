@@ -45,7 +45,7 @@ def incoming(address, message):
 
 if __name__ == "__main__":
 
-    print("Starting energy monitor example")
+    print("Starting energy monitor")
 
     energenie.init()
     energenie.discovery_auto()
