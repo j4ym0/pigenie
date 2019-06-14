@@ -31,7 +31,7 @@ def energy_monitor_loop():
             if d.capabilities.send == True:
                 print(d)
                 p = d.battery_voltage()
-                print("Battery Power for %s: %2.f" % (d, p))
+                print("Battery Power: %2.f" % (p))
         except:
             pass # Ignore it if can't provide a power
 
