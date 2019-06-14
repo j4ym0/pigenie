@@ -10,6 +10,8 @@ import energenie
 import Logger
 import time
 
+import api
+
 APP_DELAY    = 2
 switch_state = False
 
@@ -41,6 +43,9 @@ def incoming(address, message):
     print("Handeling incoming from %s" % str(address))
     c = energenie.Devices.DeviceFactory.get_device_from_id(address[1], address[2])
     c.handle_message(message)
+    if c.product_id == energenie.Devices.PRODUCTID_MIHO006:
+        api.report_to_api(c)
+
     Logger.logMessage(message)
 
 if __name__ == "__main__":
