@@ -25,13 +25,13 @@ def energy_monitor_loop():
             d.set_switch(switch_state)
     switch_state = not switch_state
 
-    # For all devices in the registry, if they have a get_power(), call it
-    print("Checking device status")
+    # For all devices in the registry and report there battery power
     for d in energenie.registry.devices():
-        print(d)
         try:
-            p = d.get_battery_voltage()
-            print("Battery voltage: %s" % str(p))
+            if d.capabilities.send == True:
+                print(d)
+                p = d.battery_voltage()
+                print("Battery Power for %s: %2.f" % (d, p))
         except:
             pass # Ignore it if can't provide a power
 
