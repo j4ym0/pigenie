@@ -5,7 +5,13 @@
 import time
 import requests
 
+telemetry = True
+
 def report_to_api(device):
+    # Check if telemetry is turned on
+    if not telemetry:
+        # No its not
+        return
     now = time.time()
     payload = {"timestamp" : time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(now)), "device_id" : device.device_id}
     # List all reading and add to payload, preping for post
