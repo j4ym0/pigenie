@@ -4,6 +4,10 @@ Open Source Raspberry Pi commander for Energenie products
 https://energenie4u.co.uk/
 
 ---
+Please Note MIHO006 data will be submitted to my private server and stored. I am using this data for analasys and debuging. No personal info is stored like you IP
+If you wish to opt out edit api.py and set 
+-telemetry = false
+---
 
 This is a starting point for me to use energy smarter. Using energy generated in a smarter and more efficient way.
 
