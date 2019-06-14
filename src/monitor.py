@@ -41,10 +41,13 @@ def energy_monitor_loop():
 
 def incoming(address, message):
     print("Handeling incoming from %s" % str(address))
-    c = energenie.Devices.DeviceFactory.get_device_from_id(address[1], address[2])
-    c.handle_message(message)
-    if c.product_id == energenie.Devices.PRODUCTID_MIHO006:
-        api.report_to_api(c)
+    try:
+        c = energenie.Devices.DeviceFactory.get_device_from_id(address[1], address[2])
+        c.handle_message(message)
+        if c.product_id == energenie.Devices.PRODUCTID_MIHO006:
+            api.report_to_api(c)
+    except:
+        pass # Ignore carnt find device
 
     Logger.logMessage(message)
 
