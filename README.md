@@ -1,9 +1,11 @@
 # Pigenie
 Open Source Raspberry Pi commander for Energenie products
 
+https://energenie4u.co.uk/
+
 ---
 
-The aim of this repo is to use energy smarter. Using energy generated in a smarter and more efficient way.
+This is a starting point for me to use energy smarter. Using energy generated in a smarter and more efficient way.
 
 #### Goals
   -  Automaticity turn power on and off when generating enough
