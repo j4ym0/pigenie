@@ -1097,7 +1097,7 @@ class DeviceFactory():
         """Get a device by name, construct a new instance"""
         # e.g. This is useful when creating device class instances from a human readable config
         if not name in DeviceFactory.device_from_name:
-            raise ValueError("Unsupported device:%s" % name)
+            raise Exception("Unsupported device:%s" % name)
 
         c = DeviceFactory.device_from_name[name]
         if air_interface == None:
@@ -1109,7 +1109,7 @@ class DeviceFactory():
         """Get a device by it's id, construct a new instance"""
         # e.g. This is useful when recreating device class instances from a persisted registry
         if not id in DeviceFactory.device_from_id:
-            print("Unsupported device id:%s" % id)
+            raise Exception("Unsupported device id:%s" % id)
 
         c = DeviceFactory.device_from_id[id]
         if air_interface == None:
