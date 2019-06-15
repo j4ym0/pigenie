@@ -31,6 +31,18 @@ def energy_monitor_loop():
     for d in energenie.registry.devices():
         try:
             if d.capabilities.send:
+                # work out the power factor for later
+                pf = ((d.get_current()/250)*d.get_apparent_power())
+                # working out the watts = amps x volts
+                GENORATION = (d.get_current()*d.get_apparent_power())/1000
+                # if less than 1 watt this can be 0 as may just be the power for the meter
+                if GENORATION < 1:
+                    GENORATION = 0
+                # devide by 1000 to get KWh
+                GENORATION = GENORATION/1000
+
+                print("Generating: %.2fKw/h" % (pf, GENORATION))
+                #
                 print("Battery Power: %f" % d.get_battery_voltage())
         except:
             pass # Ignore
