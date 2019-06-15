@@ -30,9 +30,8 @@ def energy_monitor_loop():
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
         try:
-            if d.capabilities.send == True:
-                p = d.battery_voltage()
-                print("Battery Power: %2.f" % (p))
+            if d.capabilities.send:
+                print("Battery Power: %f" % d.get_battery_voltage())
         except:
             pass # Ignore
 

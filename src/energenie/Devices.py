@@ -1109,7 +1109,7 @@ class DeviceFactory():
         """Get a device by it's id, construct a new instance"""
         # e.g. This is useful when recreating device class instances from a persisted registry
         if not id in DeviceFactory.device_from_id:
-            raise ValueError("Unsupported device id:%s" % id)
+            print("Unsupported device id:%s" % id)
 
         c = DeviceFactory.device_from_id[id]
         if air_interface == None:
