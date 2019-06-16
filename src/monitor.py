@@ -32,9 +32,9 @@ def energy_monitor_loop():
         try:
             if d.capabilities.send:
                 # work out the power factor for later
-                pf = ((d.get_current()/250)*d.get_apparent_power())
+                pf = ((d.get_current()/230)*d.get_apparent_power())
                 # working out the watts = amps x volts
-                GENORATION = (d.get_current()*d.get_apparent_power())/1000
+                GENORATION = (230*d.get_current())
                 # if less than 1 watt this can be 0 as may just be the power for the meter
                 if GENORATION < 1:
                     GENORATION = 0
