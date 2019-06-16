@@ -512,7 +512,9 @@ class OOKSwitch(LegacyDevice):
             "device_index":   self.device_id[1],
             "on":             True
         }
-        self.send_message(payload)
+        #send a couple of times
+        for x in range(0, 4):
+            self.send_message(payload)
 
     def turn_off(self):
         #TODO: should this be here, or in LegacyDevice???
@@ -523,7 +525,9 @@ class OOKSwitch(LegacyDevice):
             "device_index":   self.device_id[1],
             "on":             False
         }
-        self.send_message(payload)
+        #send a couple of times
+        for x in range(0, 4):
+            self.send_message(payload)
 
     def set_switch(self, state):
         if state:
