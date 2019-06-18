@@ -14,6 +14,7 @@ import api
 
 APP_DELAY    = 2
 switch_state = False
+Batterys = 3
 
 def energy_monitor_loop():
     global switch_state
@@ -37,8 +38,9 @@ def energy_monitor_loop():
                 GENORATION = GENORATION/1000
 
                 print("Generating: %.2fKw/h" % (pf, GENORATION))
-                # TODO get a percentage
-                print("Battery Power: %f" % d.get_battery_voltage())
+                # give us a rugh estimate of battery power
+                bat_percent = ((d.get_battery_voltage()/Batterys)-1)*300
+                print("Battery Power: %.0f%%" % bat_percent)
         except:
             pass # Ignore
 
