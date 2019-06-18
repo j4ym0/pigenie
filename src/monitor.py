@@ -18,14 +18,8 @@ switch_state = False
 def energy_monitor_loop():
     global switch_state
 
-    # Process any received messages from the real radio
+    # Process any received messages from the real radio, time out after 30 s
     energenie.loop()
-
-    # For all devices in the registry, if they have a switch, toggle it
-    for d in energenie.registry.devices():
-        if d.has_switch():
-            d.set_switch(switch_state)
-    switch_state = not switch_state
 
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
@@ -47,7 +41,12 @@ def energy_monitor_loop():
         except:
             pass # Ignore
 
-    time.sleep(APP_DELAY)
+    if GENORATION > 0.5:
+        legacy_socket_1.turn_on()
+    else:
+        legacy_socket_1.turn_off()
+
+    #time.sleep(APP_DELAY)
 
 def incoming(address, message):
     print("Handeling incoming from %s" % str(address))
