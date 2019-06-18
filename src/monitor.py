@@ -29,8 +29,8 @@ def energy_monitor_loop():
                 pf = ((d.get_current()/230)*d.get_apparent_power())
                 # working out the watts = amps x volts
                 GENORATION = (230*d.get_current())
-                # if less than 1 watt this can be 0 as may just be the power for the meter
-                if GENORATION < 1:
+                # if less than 1 watt this can be 0 as may just be the power for the meater
+                if GENORATION < 5:
                     GENORATION = 0
                 # devide by 1000 to get KWh
                 GENORATION = GENORATION/1000
