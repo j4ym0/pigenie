@@ -30,13 +30,14 @@ def energy_monitor_loop():
                 # working out the watts = amps x volts
                 GENORATION = (230*d.get_current())
                 # if less than 1 watt this can be 0 as may just be the power for the meater
+                # digital meaters can use up to 3wh
                 if GENORATION < 5:
                     GENORATION = 0
                 # devide by 1000 to get KWh
                 GENORATION = GENORATION/1000
 
                 print("Generating: %.2fKw/h" % (pf, GENORATION))
-                #
+                # TODO get a percentage
                 print("Battery Power: %f" % d.get_battery_voltage())
         except:
             pass # Ignore
