@@ -31,6 +31,7 @@ def postdata(payload=None, iritation = 0):
 	except:
 		print("Retrying post to web")
 		if iritation < 5:
+            time.sleep(5)
 			iritation += 1
 			postdata(payload, iritation)
 
