@@ -12,6 +12,10 @@ def report_to_api(device):
     if not telemetry:
         # No its not
         return
+    t = Thread(target = prep_data, args = (device, ))
+    t.start()
+
+def prep_data(device):
     now = time.time()
     payload = {"timestamp" : time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(now)), "device_id" : device.device_id}
     # List all reading and add to payload, preping for post
