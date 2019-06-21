@@ -1121,7 +1121,6 @@ class DeviceFactory():
         if air_interface == None:
             air_interface = DeviceFactory.default_air_interface
         i = c(device_id, air_interface)
-        print(i)
         return i
 
 
