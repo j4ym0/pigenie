@@ -37,10 +37,11 @@ def energy_monitor_loop():
                 # devide by 1000 to get KWh
                 GENORATION = GENORATION/1000
 
-                print("Generating: %.2fKw/h" % (pf, GENORATION))
                 # give us a rugh estimate of battery power
                 bat_percent = ((d.get_battery_voltage()/Batterys)-1)*300
-                print("Battery Power: %.0f%%" % bat_percent)
+
+                # print data for device
+                print("Generating: %.2fKw/h, Battery: %.0f%%" % (GENORATION, bat_percent))
         except:
             pass # Ignore
 

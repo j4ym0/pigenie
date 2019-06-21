@@ -22,13 +22,13 @@ def prep_data(device):
     # List all reading and add to payload, preping for post
     for attr, value in vars(device.readings).items():
         payload[attr] = value
-    print ('Payload: %s' % payload)
+    #print ('Payload: %s' % payload)
     postdata(payload)
 
 def postdata(payload=None, iritation = 0):
 	try:
 		r = requests.post("http://jmoapps.co.uk/pi.php", data=payload)
-		print("Posted to web %s" % r)
+		#print("Posted to web %s" % r)
 	except:
 		print("Retrying post to web")
 		if iritation < 5:
