@@ -25,7 +25,7 @@ def energy_monitor_loop():
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
         try:
-            if d.capabilities.send:
+            if d.product_id == energenie.Devices.PRODUCTID_MIHO006:
                 # work out the power factor for later
                 pf = ((d.get_current()/230)*d.get_apparent_power())
                 # working out the watts = amps x volts
