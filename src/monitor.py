@@ -16,6 +16,8 @@ APP_DELAY    = 2
 switch_state = False
 Batterys = 3
 
+smooth = tools.Average() # Define the smoothed genaration average
+
 def energy_monitor_loop():
     global switch_state
 
@@ -37,11 +39,13 @@ def energy_monitor_loop():
                 # devide by 1000 to get KWh
                 GENORATION = GENORATION/1000
 
+                smooth.add(GENORATION)
+
                 # give us a rugh estimate of battery power
                 bat_percent = ((d.get_battery_voltage()/Batterys)-1)*300
 
                 # print data for device
-                print("Generating: %.2fKw/h, Battery: %.0f%%" % (GENORATION, bat_percent))
+                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average(), bat_percent))
         except:
             pass # Ignore
 
