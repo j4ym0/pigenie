@@ -9,17 +9,16 @@
 import energenie
 import Logger
 import time
-
 import api
 
+
 APP_DELAY    = 2
-switch_state = False
-Batterys = 3
+default_switch_state = False
+Batterys     = 3
 
 smooth = tools.Average() # Define the smoothed genaration average
 
 def energy_monitor_loop():
-    global switch_state
 
     # Process any received messages from the real radio, time out after 30 s
     energenie.loop()
