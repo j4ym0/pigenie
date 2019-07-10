@@ -12,6 +12,11 @@ import time
 import api
 import config as cfg
 
+legacy_all_sockets  = energenie.Devices.ENER002(0)
+legacy_socket_1     = energenie.Devices.ENER002(1)
+legacy_socket_2     = energenie.Devices.ENER002(2)
+legacy_socket_3     = energenie.Devices.ENER002(3)
+legacy_socket_4     = energenie.Devices.ENER002(4)
 
 smooth = tools.Average() # Define the smoothed genaration average
 
@@ -69,6 +74,12 @@ if __name__ == "__main__":
 
     energenie.init()
     energenie.discovery_auto()
+
+    # set default state of sockets
+    if cnf.default_switch_state:
+        legacy_all_sockets.turn_on()
+    else:
+        legacy_all_sockets.turn_off()
 
     # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
