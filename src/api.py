@@ -26,14 +26,14 @@ def prep_data(device):
     postdata(payload)
 
 def postdata(payload=None, iritation = 0):
-	try:
-		r = requests.post("http://jmoapps.co.uk/pi.php", data=payload)
-		#print("Posted to web %s" % r)
-	except:
-		print("Retrying post to web")
-		if iritation < 5:
+    try:
+        r = requests.post("http://jmoapps.co.uk/pi.php", data=payload)
+        #print("Posted to web %s" % r)
+    except:
+        print("Retrying post to web")
+        if iritation < 5:
             time.sleep(5)
-			iritation += 1
-			postdata(payload, iritation)
+            iritation += 1
+            postdata(payload, iritation)
 
 # END
