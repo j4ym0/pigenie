@@ -5,12 +5,12 @@
 import time
 import requests
 from threading import Thread
+import config as cfg
 
-telemetry = True
 
 def report_to_api(device):
     # Check if telemetry is turned on
-    if not telemetry:
+    if not cfg.telemetry:
         # No its not
         return
     t = Thread(target = prep_data, args = (device, ))
