@@ -29,7 +29,7 @@ def energy_monitor_loop():
                 # work out the power factor for later
                 pf = ((d.get_current()/240)*d.get_apparent_power())
                 # working out the watts = amps x volts
-                GENORATION = (240*d.get_current())/(0.84) # device by power factor
+                GENORATION = round(240*d.get_current())/(0.84) # device by power factor
                 # if less than 1 watt this can be 0 as may just be the power for the meater
                 # digital meaters can use up to 3wh
                 if GENORATION < 5:
