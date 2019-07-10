@@ -10,6 +10,7 @@ import energenie
 import Logger
 import time
 import api
+import tools
 import config as cfg
 
 legacy_all_sockets  = energenie.Devices.ENER002(0)
