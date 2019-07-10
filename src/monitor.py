@@ -21,7 +21,7 @@ def energy_monitor_loop():
 
     # Process any received messages from the real radio, time out after 30 s
     energenie.loop()
-
+    GENORATION = 0
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
         try:
