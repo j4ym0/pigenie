@@ -40,11 +40,8 @@ def energy_monitor_loop():
 
                 smooth.add(GENORATION)
 
-                # give us a rugh estimate of battery power
-                bat_percent = ((d.get_battery_voltage()/Batterys)-1)*300
-
                 # print data for device
-                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average(), bat_percent))
+                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average(), d.get_battery_life()))
         except:
             pass # Ignore
 
