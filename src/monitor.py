@@ -38,7 +38,7 @@ def energy_monitor_loop():
                 smooth.add(GENORATION)
 
                 # print data for device
-                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average(), d.get_battery_life()))
+                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average()/1000, d.get_battery_life()))
         except:
             pass # Ignore
 
@@ -47,7 +47,7 @@ def energy_monitor_loop():
         supply = smooth.average() - cfg.base_watts
 
     supply = round(supply)
-    
+
     if supply > 0:
         for socket in cfg.legacy_sockets:
             print("Remaining Supply %sw" % supply)
