@@ -10,11 +10,8 @@ import energenie
 import Logger
 import time
 import api
+import config as cfg
 
-
-APP_DELAY    = 2
-default_switch_state = False
-Batterys     = 3
 
 smooth = tools.Average() # Define the smoothed genaration average
 
@@ -40,8 +37,11 @@ def energy_monitor_loop():
 
                 smooth.add(GENORATION)
 
+                # give us a rugh estimate of battery power
+                bat_percent = d.get_battery_life()
+
                 # print data for device
-                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average(), d.get_battery_life()))
+                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION, smooth.average(), bat_percent))
         except:
             pass # Ignore
 
@@ -50,7 +50,6 @@ def energy_monitor_loop():
     else:
         legacy_socket_1.turn_off()
 
-    #time.sleep(APP_DELAY)
 
 def incoming(address, message):
     print("Handeling incoming from %s" % str(address))
