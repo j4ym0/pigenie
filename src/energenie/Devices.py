@@ -881,6 +881,9 @@ class MIHO006(MiHomeDevice):
                     print("unwanted paramid: %s" % param_name)
         pass
 
+    def get_battery_life(self): # -> percent:int
+        return ((d.get_battery_voltage()/3)-1)*300 # ruff percentage on the battery life give it has 3 batterys at 1.2v
+
     def get_battery_voltage(self): # -> voltage:float
         return self.readings.battery_voltage
 
