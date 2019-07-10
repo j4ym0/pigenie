@@ -13,10 +13,6 @@ import api
 import config as cfg
 
 legacy_all_sockets  = energenie.Devices.ENER002(0)
-legacy_socket_1     = energenie.Devices.ENER002(1)
-legacy_socket_2     = energenie.Devices.ENER002(2)
-legacy_socket_3     = energenie.Devices.ENER002(3)
-legacy_socket_4     = energenie.Devices.ENER002(4)
 
 smooth = tools.Average() # Define the smoothed genaration average
 
@@ -37,8 +33,6 @@ def energy_monitor_loop():
                 # digital meaters can use up to 3wh
                 if GENORATION < 5:
                     GENORATION = 0
-                # devide by 1000 to get KWh
-                GENORATION = GENORATION/1000
 
                 smooth.add(GENORATION)
 
@@ -47,10 +41,18 @@ def energy_monitor_loop():
         except:
             pass # Ignore
 
-    if GENORATION > 0.5:
-        legacy_socket_1.turn_on()
+    supply = GENORATION - cfg.base_watts
+
+    if supply > 0:
+        for socket in legacy_sockets:
+            print("Remaining Supply %sw" % )
+            if supply > socket['watts'] :
+                supply -= socket['watts']
+                energenie.Devices.ENER002(socket['socket']).turn_on()
+            else:
+                energenie.Devices.ENER002(socket['socket']).turn_off()
     else:
-        legacy_socket_1.turn_off()
+        legacy_all_sockets.turn_off()
 
 
 def incoming(address, message):
