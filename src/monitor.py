@@ -45,7 +45,7 @@ def energy_monitor_loop():
     supply = GENORATION - cfg.base_watts
 
     if supply > 0:
-        for socket in legacy_sockets:
+        for socket in cfg.legacy_sockets:
             print("Remaining Supply %sw" % supply)
             if supply > socket['watts'] :
                 supply -= socket['watts']
