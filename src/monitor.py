@@ -45,7 +45,7 @@ def energy_monitor_loop():
 
     if supply > 0:
         for socket in legacy_sockets:
-            print("Remaining Supply %sw" % )
+            print("Remaining Supply %sw" % supply)
             if supply > socket['watts'] :
                 supply -= socket['watts']
                 energenie.Devices.ENER002(socket['socket']).turn_on()
