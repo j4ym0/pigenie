@@ -76,7 +76,7 @@ if __name__ == "__main__":
     energenie.discovery_auto()
 
     # set default state of sockets
-    if cnf.default_switch_state:
+    if cfg.default_switch_state:
         legacy_all_sockets.turn_on()
     else:
         legacy_all_sockets.turn_off()
