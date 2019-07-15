@@ -39,8 +39,8 @@ def energy_monitor_loop():
 
                 # print data for device
                 print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION/1000, smooth.average()/1000, d.get_battery_life()))
-        except:
-            pass # Ignore
+        except Exception as e:
+            print(e) # print exception
 
     supply = GENORATION - cfg.base_watts
     if cfg.use_smoothing:
