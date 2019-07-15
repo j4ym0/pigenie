@@ -13,6 +13,7 @@ default_switch_state    = False     # what state all sockets should be in on sta
 telemetry               = True      # send some data back to jmoapps, this is not a requirement but helps improve
                                     # set to False if you dont wnat to send any data black
                                     # no personal data will be stored only deviceid, current, voltage and battery
+
 use_smoothing           = True      # if the sockets should use a smoothed watts, this smooths the spikes a troffs
 base_watts              = 140       # base watts that are used all the time. you allarm, phone, router smoke detector thay all add up
 
