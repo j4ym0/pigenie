@@ -13,7 +13,13 @@ import api
 import tools
 import config as cfg
 
-legacy_all_sockets  = energenie.Devices.ENER002(0)
+legacy_sockets  = [
+                    energenie.Devices.ENER002(0),
+                    energenie.Devices.ENER002(1),
+                    energenie.Devices.ENER002(2),
+                    energenie.Devices.ENER002(3),
+                    energenie.Devices.ENER002(4),
+                  ]
 
 smooth = tools.Average() # Define the smoothed genaration average
 
@@ -50,16 +56,15 @@ def energy_monitor_loop():
 
     if supply > 0:
         for socket in cfg.legacy_sockets:
-            print("Remaining Supply %sw" % supply)
             if supply > socket['watts'] :
                 supply -= socket['watts']
-                energenie.Devices.ENER002(socket['socket']).turn_on()
+                legacy_sockets[socket['socket']].turn_on()
             else:
-                energenie.Devices.ENER002(socket['socket']).turn_off()
+                legacy_sockets[socket['socket']].turn_off()
         time.sleep(1) # let sockets settle to reduce rf noise
         print("Remaining Supply %sw" % supply)
     else:
-        legacy_all_sockets.turn_off()
+        legacy_sockets[0].turn_off()
 
 
 def incoming(address, message):
@@ -83,9 +88,9 @@ if __name__ == "__main__":
 
     # set default state of sockets
     if cfg.default_switch_state:
-        legacy_all_sockets.turn_on()
+        legacy_sockets[0].turn_on()
     else:
-        legacy_all_sockets.turn_off()
+        legacy_sockets[0].turn_off()
 
     # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
