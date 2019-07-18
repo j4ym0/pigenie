@@ -63,7 +63,7 @@ def energy_monitor_loop():
 
 
 def incoming(address, message):
-    print("Handeling incoming from %s" % str(address))
+    #print("Handeling incoming from %s" % str(address))
     try:
         c = energenie.Devices.DeviceFactory.get_device_from_id(address[1], address[2])
         c.handle_message(message)
