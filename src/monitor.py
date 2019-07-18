@@ -61,7 +61,7 @@ def energy_monitor_loop():
                 legacy_sockets[socket['socket']].turn_on()
             else:
                 legacy_sockets[socket['socket']].turn_off()
-        time.sleep(1) # let sockets settle to reduce rf noise
+            time.sleep(1) # let sockets settle to reduce rf noise
         print("Remaining Supply %sw" % supply)
     else:
         legacy_sockets[0].turn_off()
