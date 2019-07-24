@@ -32,14 +32,15 @@ def energy_monitor_loop():
     for d in energenie.registry.devices():
         try:
             if d.product_id == energenie.Devices.PRODUCTID_MIHO006:
-                # work out the power factor for later
-                pf = ((d.get_current()/240)*d.get_apparent_power())
-                # working out the watts = amps x volts
-                GENORATION =(240*d.get_current())/(0.84) # device by power factor
-                # if less than 1 watt this can be 0 as may just be the power for the meater
-                # digital meaters can use up to 3wh
-                if GENORATION < 5:
-                    GENORATION = 0
+                if d.get_apparent_power() > 50: # weed out the low genaration or power used to run meater
+                    # work out the power factor for later
+                    pf = ((d.get_current()/240)*d.get_apparent_power())
+                    # working out the watts = amps x volts
+                    GENORATION =(240*d.get_current())/(0.84) # device by power factor
+                    # if less than 1 watt this can be 0 as may just be the power for the meater
+                    # digital meaters can use up to 3wh
+                else:
+                    GENORATION = 0 # set no not genarating power
 
                 smooth.add(GENORATION)
 
