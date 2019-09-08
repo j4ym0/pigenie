@@ -26,7 +26,10 @@ smooth = tools.Average() # Define the smoothed genaration average
 def energy_monitor_loop():
 
     # Process any received messages from the real radio, time out after 30 s
-    energenie.loop(cfg.receive_wait)
+    if not energenie.loop(cfg.receive_wait):
+        print("Timeout, nothing received")
+        return False
+
     GENORATION = 0
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
