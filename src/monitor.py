@@ -28,6 +28,9 @@ def energy_monitor_loop():
     # Process any received messages from the real radio, time out after 30 s
     if not energenie.loop(cfg.receive_wait):
         print("Timeout, nothing received")
+        if not cfg.app_all_off:
+            legacy_sockets[0].turn_off()
+            cfg.app_all_off = True
         return False
 
     GENORATION = 0
