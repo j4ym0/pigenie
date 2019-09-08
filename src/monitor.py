@@ -64,8 +64,11 @@ def energy_monitor_loop():
                 legacy_sockets[socket['socket']].turn_off()
             time.sleep(1) # let sockets settle to reduce rf noise
         print("Remaining Supply %sw" % supply)
+        cfg.app_all_off = False
     else:
-        legacy_sockets[0].turn_off()
+        if not cfg.app_all_off:
+            legacy_sockets[0].turn_off()
+            cfg.app_all_off = True
 
 
 def incoming(address, message):
@@ -82,6 +85,9 @@ def incoming(address, message):
 
 if __name__ == "__main__":
 
+    #init  internal various
+    cfg.app_all_off = False
+
     print("Starting energy monitor")
 
     energenie.init()
@@ -90,8 +96,10 @@ if __name__ == "__main__":
     # set default state of sockets
     if cfg.default_switch_state:
         legacy_sockets[0].turn_on()
+        cfg.app_all_off = False
     else:
         legacy_sockets[0].turn_off()
+        cfg.app_all_off = True
 
     # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
