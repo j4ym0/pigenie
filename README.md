@@ -27,8 +27,10 @@ This is a starting point for me to use energy smarter. Using energy generated in
   -  I don't suggest connect your fridge, TV, Lights or any appliance that will require energy to function when there is nothing been generated.
   -  Do not try and control any emergency system.
   
-  -  Use for drying washing
-  -  Setting the dish washer going
-  -  Starting the washer when its sunny
+  -  Control your washer, dryer and immersion heater
+  -  Control a portable heater
 
 
+## Todo's
+  - multiple monitors for supply & genaration
+  - check usage is not outstriping supply for whole hosue and adjust
