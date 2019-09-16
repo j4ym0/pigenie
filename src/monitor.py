@@ -25,6 +25,11 @@ smooth = tools.Average() # Define the smoothed genaration average
 
 def energy_monitor_loop():
 
+    if not cfg.reset_max_time == datetime.now().day:
+        cfg.reset_max_time = datetime.now().day
+        for socket in cfg.legacy_sockets:
+            socket['elapsed_time'] = 0
+
     # Process any received messages from the real radio, time out after 30 s
     if not energenie.loop(cfg.receive_wait):
         print("Timeout, nothing received")
