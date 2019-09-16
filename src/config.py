@@ -28,6 +28,7 @@ base_watts              = 140       # base watts that are used all the time. you
 #
 #   priority put the most consuming at the top or the device you want on the most
 #
-legacy_sockets      = [ {'socket' : 1, 'watts' : 360, 'max_time' : 0},
-                        {'socket' : 2, 'watts' : 1000, 'max_time' : 3600}
+legacy_sockets      = [
+                        {'socket' : 1, 'watts' : 360, 'max_time' : 0},
+                        {'socket' : 2, 'watts' : 1000, 'max_time' : 3600},
                       ]
