@@ -63,11 +63,48 @@ def energy_monitor_loop():
 
     if supply > 0:
         for socket in cfg.legacy_sockets:
-            if supply > socket['watts'] :
-                supply -= socket['watts']
-                legacy_sockets[socket['socket']].turn_on()
+            if socket['max_time'] > 0:
+                if 'elapsed_time' not in socket:
+                    socket['elapsed_time'] = 0
+                    print("zeroing")
+                if 'current_timing' not in socket:
+                    socket['current_timing'] = None
+
+            if supply > socket['watts']:
+                onoff = True
+                if socket['max_time'] > 0:
+                    if socket['elapsed_time'] >= socket['max_time']:
+                        onoff = False
+                    elif socket['current_timing'] is None:
+                        socket['current_timing'] = time.time()
+                    else:
+                        if socket['max_time'] < (socket['elapsed_time']+(time.time()-socket['current_timing'])):
+                            socket['elapsed_time'] = socket['elapsed_time']+time.time()-socket['current_timing']
+                            print("socket %i above max_time" % socket['socket'])
+                            onoff = False
+                            socket['current_timing'] = None
+
+                if onoff:
+                    supply -= socket['watts']
+                    legacy_sockets[socket['socket']].turn_on()
+                    print("socket %i on" % socket['socket'])
+                else:
+                    legacy_sockets[socket['socket']].turn_off()
+                    print("socket %i off" % socket['socket'])
+
             else:
+                if socket['max_time'] > 0 and socket['current_timing'] is not None:
+                    socket['elapsed_time'] = socket['elapsed_time']+time.time()-socket['current_timing']
+                    print("elapsed_time")
+                    socket['current_timing'] = None
+
                 legacy_sockets[socket['socket']].turn_off()
+                print("socket %i off" % socket['socket'])
+
+            if socket['max_time'] > 0 and 'elapsed_time' in socket and socket['current_timing'] is not None:
+                print("Total Elapsed: %i and current elapsed: %i" % (socket['elapsed_time'], ((socket['elapsed_time']+(time.time()-socket['current_timing'])))))
+            elif socket['max_time'] > 0 and 'elapsed_time' in socket:
+                print("Total elapsed time: %i" % (socket['elapsed_time']))
             time.sleep(1) # let sockets settle to reduce rf noise
         print("Remaining Supply %sw" % supply)
         cfg.app_all_off = False
