@@ -15,7 +15,7 @@ telemetry               = True      # send some data back to jmoapps, this is no
                                     # no personal data will be stored only deviceid, current, voltage and battery
 
 use_smoothing           = True      # if the sockets should use a smoothed watts, this smooths the spikes a troffs
-base_watts              = 140       # base watts that are used all the time. you allarm, phone, router smoke detector thay all add up
+base_watts              = 100       # base watts that are used all the time. you allarm, phone, router smoke detector thay all add up
 
 
 #
@@ -29,6 +29,8 @@ base_watts              = 140       # base watts that are used all the time. you
 #   priority put the most consuming at the top or the device you want on the most
 #
 legacy_sockets      = [
-                        {'socket' : 1, 'watts' : 360, 'max_time' : 0},
                         {'socket' : 2, 'watts' : 1000, 'max_time' : 3600},
+                        {'socket' : 1, 'watts' : 360, 'max_time' : 0 },
                       ]
+                      
+                      
