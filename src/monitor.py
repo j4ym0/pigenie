@@ -9,6 +9,7 @@
 import energenie
 import Logger
 import time
+from datetime import datetime
 import api
 import tools
 import config as cfg
@@ -22,6 +23,8 @@ legacy_sockets  = [
                   ]
 
 smooth = tools.Average() # Define the smoothed genaration average
+
+
 
 def energy_monitor_loop():
 
@@ -37,7 +40,7 @@ def energy_monitor_loop():
             legacy_sockets[0].turn_off()
             cfg.app_all_off = True
         return False
-
+        
     GENORATION = 0
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
@@ -133,8 +136,7 @@ def incoming(address, message):
 
 if __name__ == "__main__":
 
-    #init  internal various
-    cfg.app_all_off = False
+    cfg.reset_max_time = datetime.now().day
 
     print("Starting energy monitor")
 
