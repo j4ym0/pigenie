@@ -110,7 +110,8 @@ class KVS():
         try:
             obj = value.get_config() # will fail with AttributeError if this method does not exist
         except AttributeError:
-            raise NotPersistableError()
+            return False
+            #raise NotPersistableError()
         self.append(key, obj)
 
     def __delitem__(self, key):
@@ -186,4 +187,3 @@ class KVS():
 
 
 # END
-
