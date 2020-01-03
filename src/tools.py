@@ -20,11 +20,11 @@ class Average(): # used to collect data and average over time or values
         del self.store[1] # delete the yongest value
         self.store.append(value) # add the value to the end
 
-        if fastinit: # if valuse is 0 then init with current value
+        if self.fastinit: # if valuse is 0 then init with current value
             for i in range(len(self.store)-1):
                 if self.store[i+1] == 0:
                     self.store[i+1] = value
-            fastinit = False # turn off so is not called later
+            self.fastinit = False # turn off so is not called later
 
         a = 0
         for i in range(len(self.store)-1):
