@@ -56,7 +56,10 @@ class DeviceRegistry(): # this is actions, so is this the 'RegistRAR'??
 
     def add(self, device, name):
         """Add a device class instance to the registry, with a friendly name"""
-        self.store[name] = device
+        try:
+            self.store[name] = device
+        except:
+            pass
 
     def get(self, name): # -> Device
         """Get the description for a device class from the store, and construct a class instance"""
@@ -249,6 +252,8 @@ class Discovery():
         device_id  = address[2]
         ##print("**** wiring up registry and router for %s" % str(address))
         ci = Devices.DeviceFactory.get_device_from_id(product_id, device_id)
+        if ci == None:
+            return None
         self.registry.add(ci, "auto_%s_%s" % (str(hex(product_id)), str(hex(device_id))))
         self.router.add(address, ci)
 
