@@ -35,12 +35,12 @@ def energy_monitor_loop():
 
     # Process any received messages from the real radio, time out after 30 s
     if not energenie.loop(cfg.receive_wait):
-        print("Timeout, nothing received")
+        logger.debug("Timeout, nothing received")
         if not cfg.app_all_off:
             legacy_sockets[0].turn_off()
             cfg.app_all_off = True
         return False
-        
+
     GENORATION = 0
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
@@ -59,9 +59,9 @@ def energy_monitor_loop():
                 smooth.add(GENORATION)
 
                 # print data for device
-                print("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION/1000, smooth.average()/1000, d.get_battery_life()))
+                logger.info("Generating: %.2fKw/h, Smoth Average %.2fKw/h, Battery: %.0f%%" % (GENORATION/1000, smooth.average()/1000, d.get_battery_life()))
         except Exception as e:
-            print(e) # print exception
+            logger.warning(e) # print exception
 
     supply = GENORATION - cfg.base_watts
     if cfg.use_smoothing:
@@ -74,7 +74,7 @@ def energy_monitor_loop():
             if socket['max_time'] > 0:
                 if 'elapsed_time' not in socket:
                     socket['elapsed_time'] = 0
-                    print("zeroing")
+                    logger.verbose("zeroing")
                 if 'current_timing' not in socket:
                     socket['current_timing'] = None
 
@@ -88,33 +88,33 @@ def energy_monitor_loop():
                     else:
                         if socket['max_time'] < (socket['elapsed_time']+(time.time()-socket['current_timing'])):
                             socket['elapsed_time'] = socket['elapsed_time']+time.time()-socket['current_timing']
-                            print("socket %i above max_time" % socket['socket'])
+                            logger.debug("socket %i above max_time" % socket['socket'])
                             onoff = False
                             socket['current_timing'] = None
 
                 if onoff:
                     supply -= socket['watts']
                     legacy_sockets[socket['socket']].turn_on()
-                    print("socket %i on" % socket['socket'])
+                    logger.debug("socket %i on" % socket['socket'])
                 else:
                     legacy_sockets[socket['socket']].turn_off()
-                    print("socket %i off" % socket['socket'])
+                    logger.debug("socket %i off" % socket['socket'])
 
             else:
                 if socket['max_time'] > 0 and socket['current_timing'] is not None:
                     socket['elapsed_time'] = socket['elapsed_time']+time.time()-socket['current_timing']
-                    print("elapsed_time")
+                    logger.debug("elapsed_time")
                     socket['current_timing'] = None
 
                 legacy_sockets[socket['socket']].turn_off()
-                print("socket %i off" % socket['socket'])
+                logger.debug("socket %i off" % socket['socket'])
 
             if socket['max_time'] > 0 and 'elapsed_time' in socket and socket['current_timing'] is not None:
-                print("Total Elapsed: %i and current elapsed: %i" % (socket['elapsed_time'], ((socket['elapsed_time']+(time.time()-socket['current_timing'])))))
+                logger.info("Total Elapsed: %i and current elapsed: %i" % (socket['elapsed_time'], ((socket['elapsed_time']+(time.time()-socket['current_timing'])))))
             elif socket['max_time'] > 0 and 'elapsed_time' in socket:
-                print("Total elapsed time: %i" % (socket['elapsed_time']))
+                logger.debug("Total elapsed time: %i" % (socket['elapsed_time']))
             time.sleep(1) # let sockets settle to reduce rf noise
-        print("Remaining Supply %sw" % supply)
+        logger.debug("Remaining Supply %sw" % supply)
         cfg.app_all_off = False
     else:
         if not cfg.app_all_off:
@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
     cfg.reset_max_time = datetime.now().day
 
-    print("Starting energy monitor")
+    Logger.info("Starting energy monitor")
 
     energenie.init()
     energenie.discovery_auto()
@@ -153,12 +153,14 @@ if __name__ == "__main__":
 
     # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
-    print("Logging to file:%s" % Logger.LOG_FILENAME)
+    logger.debug("Debug Logging to file:%s" % Logger.LOG_FILENAME)
+    logger.debug("Data Logging File:%s" % Logger.CSV_FILENAME)
 
     try:
         while True:
             energy_monitor_loop()
     finally:
         energenie.finished()
+        logger.verbose("Finally finished - must be an error")
 
 # END
