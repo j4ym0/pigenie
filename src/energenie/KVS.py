@@ -30,6 +30,8 @@ class KVS():
         key = None
         obj = None
 
+        debug = ""
+
         ##print("load from %s" % filename)
         with open(filename) as f:
             while True:
@@ -110,8 +112,11 @@ class KVS():
         try:
             obj = value.get_config() # will fail with AttributeError if this method does not exist
         except AttributeError:
+            debug = "error setting item"
+            print(debug)
             return False
             #raise NotPersistableError()
+        print(debug)
         self.append(key, obj)
 
     def __delitem__(self, key):
