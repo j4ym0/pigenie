@@ -1,4 +1,5 @@
 
+import config as cfg
 
 
 
@@ -12,7 +13,7 @@ class Average(): # used to collect data and average over time or values
         self.store_size = (size+1)
         self.store = [0] * self.store_size  # init array of the size + 1 for the average result
         self.store[0] = 0                   # init the average for later
-        self.fastinit = True                # 1 = number of values
+        self.fastinit = cnf.smoothing_fast_init
         self.type = 1                       # 1 = number of values
                                             # 2 = TODO over time
 
@@ -20,8 +21,8 @@ class Average(): # used to collect data and average over time or values
         del self.store[1] # delete the yongest value
         self.store.append(value) # add the value to the end
 
-        if self.fastinit: # if valuse is 0 then init with current value
-            for i in range(len(self.store)-1):
+        if self.fastinit:
+            for i in range(len(self.store)-1): # if valuse is 0 then init with current value
                 if self.store[i+1] == 0:
                     self.store[i+1] = value
             self.fastinit = False # turn off so is not called later

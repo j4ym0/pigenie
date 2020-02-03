@@ -22,6 +22,7 @@ telemetry               = False      # send some data back to jmoapps, this is n
                                     # no personal data will be stored only deviceid, current, voltage and battery
 
 use_smoothing           = True      # if the sockets should use a smoothed watts, this smooths the spikes a troffs
+smoothing_fast_init     = True      # when using smoothing, fast init will backfill the cache with the first value it receives
 base_watts              = 100       # base watts that are used all the time. you allarm, phone, router smoke detector thay all add up
 
 
