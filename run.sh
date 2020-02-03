@@ -8,7 +8,7 @@ if [ ! -f src/energenie/drv/radio_rpi.so ]; then
     ./build_rpi
     cd ../..
 fi
-if [ ! -f /tmp/foo.txt ]; then
+if [ ! -f src/energenie/drv/radio_rpi.so ]; then
   echo "Drivers found, starting monitor"
   python3 src/monitor.py
 fi
