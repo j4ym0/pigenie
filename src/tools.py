@@ -13,7 +13,7 @@ class Average(): # used to collect data and average over time or values
         self.store_size = (size+1)
         self.store = [0] * self.store_size  # init array of the size + 1 for the average result
         self.store[0] = 0                   # init the average for later
-        self.fastinit = cnf.smoothing_fast_init
+        self.fastinit = cfg.smoothing_fast_init
         self.type = 1                       # 1 = number of values
                                             # 2 = TODO over time
 
