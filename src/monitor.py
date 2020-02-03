@@ -7,7 +7,7 @@
 # Any device that offers a power reading, it displays it.
 
 import energenie
-import Logger
+import logger
 import time
 from datetime import datetime
 import api
@@ -132,13 +132,13 @@ def incoming(address, message):
     except:
         pass # Ignore carnt find device
 
-    Logger.logMessage(message)
+    logger.logMessage(message)
 
 if __name__ == "__main__":
 
     cfg.reset_max_time = datetime.now().day
 
-    Logger.info("Starting energy monitor")
+    logger.info("Starting energy monitor")
 
     energenie.init()
     energenie.discovery_auto()
@@ -153,8 +153,8 @@ if __name__ == "__main__":
 
     # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
-    logger.debug("Debug Logging to file:%s" % Logger.LOG_FILENAME)
-    logger.debug("Data Logging File:%s" % Logger.CSV_FILENAME)
+    logger.debug("Debug Logging to file:%s" % logger.LOG_FILENAME)
+    logger.debug("Data Logging File:%s" % logger.CSV_FILENAME)
 
     try:
         while True:
