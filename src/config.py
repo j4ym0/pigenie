@@ -7,6 +7,13 @@
 #
 # Genrale stuff for setting up app
 #
+log_level               = 3         # 1 - 4
+                                    # 1 absolut minimum (only warnings)
+                                    # 2 warnings and Information
+                                    # 3 warnings, info and debuging
+                                    # 4 everything
+                                    # 5 everything + timestamp
+
 receive_wait            = 10        # how long to wait for signal before contining code
 default_switch_state    = False     # what state all sockets should be in on startup
 
