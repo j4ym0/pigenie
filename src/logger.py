@@ -84,7 +84,7 @@ def logMessage(msg):
             csv_file = open(cfg.CSV_FILENAME, 'w')
             csv_file.write(HEADINGS + '\n')
         else:
-            csv_file = open(CSV_FILENAME, 'a') # append
+            csv_file = open(cfg.CSV_FILENAME, 'a') # append
 
     # get the header
     header    = msg['header']
