@@ -77,7 +77,7 @@ def warning(msg):
 def logMessage(msg):
     global csv_file
 
-    if not cfg.logtocsv:
+    if not cfg.log_to_csv:
         return
     if csv_file == None:
         if not os.path.isfile(cfg.CSV_FILENAME):
