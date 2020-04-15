@@ -153,8 +153,8 @@ if __name__ == "__main__":
 
     # provide a default message handler
     energenie.fsk_router.when_incoming(incoming)
-    logger.debug("Debug Logging to file:%s" % logger.LOG_FILENAME)
-    logger.debug("Data Logging File:%s" % logger.CSV_FILENAME)
+    logger.debug("Debug Logging to file:%s" % cfg.LOG_FILENAME)
+    logger.debug("Data Logging File:%s" % cfg.CSV_FILENAME)
 
     try:
         while True:
