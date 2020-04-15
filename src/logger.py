@@ -7,12 +7,17 @@ from energenie import OpenThings
 import config as cfg
 import os, time
 
-LOG_FILENAME = "debug.log"
-CSV_FILENAME = "energenie.csv"
 HEADINGS = 'timestamp,mfrid,prodid,sensorid,flags,switch,voltage,freq,reactive,real,apparent,current,temperature'
 
 log_file = None
 csv_file = None
+
+if cfg.LOG_FILENAME == None:
+    if not os.path.isfile(cfg.LOG_FILENAME):
+        log_file = open(cfg.LOG_FILENAME, 'w')
+    else:
+        log_file = open(cfg.LOG_FILENAME, 'a') # append
+
 
 def get_timestamp():
     ts = time.time()
@@ -29,13 +34,8 @@ def verbose(msg):
         msg = get_timestamp() + msg
 
     if cfg.log_level > 3:
-        if log_file == None:
-            if not os.path.isfile(LOG_FILENAME):
-                log_file = open(LOG_FILENAME, 'w')
-            else:
-                log_file = open(LOG_FILENAME, 'a') # append
-
-        log_file.write(msg + '\n')
+        if not (log_file is None):
+            log_file.write(msg + '\n')
         print(msg)
 
 
@@ -46,13 +46,8 @@ def debug(msg):
         msg = get_timestamp() + msg
 
     if cfg.log_level > 2:
-        if log_file == None:
-            if not os.path.isfile(LOG_FILENAME):
-                log_file = open(LOG_FILENAME, 'w')
-            else:
-                log_file = open(LOG_FILENAME, 'a') # append
-
-        log_file.write(msg + '\n')
+        if not (log_file is None):
+            log_file.write(msg + '\n')
         print(msg)
 
 
@@ -63,13 +58,8 @@ def info(msg):
         msg = get_timestamp() + msg
 
     if cfg.log_level > 1:
-        if log_file == None:
-            if not os.path.isfile(LOG_FILENAME):
-                log_file = open(LOG_FILENAME, 'w')
-            else:
-                log_file = open(LOG_FILENAME, 'a') # append
-
-        log_file.write(msg + '\n')
+        if not (log_file is None):
+            log_file.write(msg + '\n')
         print(msg)
 
 
@@ -79,22 +69,19 @@ def warning(msg):
     if cfg.log_level > 4:
         msg = get_timestamp() + msg
 
-    if log_file == None:
-        if not os.path.isfile(LOG_FILENAME):
-            log_file = open(LOG_FILENAME, 'w')
-        else:
-            log_file = open(LOG_FILENAME, 'a') # append
-
-    log_file.write(msg + '\n')
+    if not (log_file is None):
+        log_file.write(msg + '\n')
     print(msg)
 
 
 def logMessage(msg):
     global csv_file
 
+    if not cfg.logtocsv:
+        return
     if csv_file == None:
-        if not os.path.isfile(CSV_FILENAME):
-            csv_file = open(CSV_FILENAME, 'w')
+        if not os.path.isfile(cfg.CSV_FILENAME):
+            csv_file = open(cfg.CSV_FILENAME, 'w')
             csv_file.write(HEADINGS + '\n')
         else:
             csv_file = open(CSV_FILENAME, 'a') # append
