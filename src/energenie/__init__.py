@@ -62,7 +62,7 @@ def init():
     ##discovery_askjoin(ask)
 
 
-def loop(receive_time=1):
+def loop(receive_time=30):
     """Handle receive processing"""
     radio.receiver(fsk=True)
     timeout = time.time() + receive_time
@@ -71,7 +71,6 @@ def loop(receive_time=1):
     while True:
         if radio.is_receive_waiting():
             payload = radio.receive_cbp()
-            now = time.time()
             try:
                 msg        = OpenThings.decode(payload, receive_timestamp=now)
                 hdr        = msg["header"]
@@ -85,10 +84,9 @@ def loop(receive_time=1):
             except OpenThings.OpenThingsException:
                 print("Can't decode payload:%s" % payload)
 
-        now = time.time()
-        if now > timeout: break
-    radio.standby()
-    return handled
+        if time.time() > timeout: break
+        radio.standby()
+        return handled
 
 
 def finished():

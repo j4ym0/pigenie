@@ -17,7 +17,7 @@ LOG_FILENAME            = "debug.log"   # filename of the debug logs, use None t
 log_to_csv              = False         # will log the results from MIHO004, MIHO005, MIHO006 to CSV
 CSV_FILENAME            = "results.csv" # CSV filename for logging, use None to disabled
 
-receive_wait            = 10            # how long to wait for signal before contining code
+receive_wait            = 30            # how long to wait for signal before contining code
 default_switch_state    = False         # what state all sockets should be in on startup
 
 telemetry               = False         # send some data back to jmoapps, this is not a requirement but helps improve
