@@ -72,7 +72,7 @@ def loop(receive_time=30):
         if radio.is_receive_waiting():
             payload = radio.receive_cbp()
             try:
-                msg        = OpenThings.decode(payload, receive_timestamp=now)
+                msg        = OpenThings.decode(payload, receive_timestamp=time.time())
                 hdr        = msg["header"]
                 mfr_id     = hdr["mfrid"]
                 product_id = hdr["productid"]
