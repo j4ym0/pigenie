@@ -87,7 +87,7 @@ def loop(receive_time=1):
 
         now = time.time()
         if now > timeout: break
-
+    radio.standby()
     return handled
 
 
