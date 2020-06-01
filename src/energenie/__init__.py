@@ -84,6 +84,7 @@ def loop(receive_time=30):
             except OpenThings.OpenThingsException:
                 print("Can't decode payload:%s" % payload)
 
+        if handled == True: break
         if time.time() > timeout: break
     radio.standby()
     return handled
