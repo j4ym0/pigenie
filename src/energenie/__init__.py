@@ -85,8 +85,8 @@ def loop(receive_time=30):
                 print("Can't decode payload:%s" % payload)
 
         if time.time() > timeout: break
-        radio.standby()
-        return handled
+    radio.standby()
+    return handled
 
 
 def finished():
