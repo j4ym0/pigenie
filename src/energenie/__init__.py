@@ -97,6 +97,7 @@ def loop(receive_time=30):
 
 def finished():
     """Cleanly close the Energenie system when finished"""
+    logger.debug("Closing radio")
     radio.finished()
 
 
