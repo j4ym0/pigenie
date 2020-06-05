@@ -9,6 +9,7 @@
 import time
 import os
 import sys
+import logger
 
 try:
     # Python 2
@@ -72,20 +73,24 @@ def loop(receive_time=30):
         if radio.is_receive_waiting():
             payload = radio.receive_cbp()
             try:
+                logger.verbose("Payload received : %s" % payload)
                 msg        = OpenThings.decode(payload, receive_timestamp=time.time())
                 hdr        = msg["header"]
                 mfr_id     = hdr["mfrid"]
                 product_id = hdr["productid"]
                 device_id  = hdr["sensorid"]
                 address    = (mfr_id, product_id, device_id)
+                logger.verbose("Decoded payload : %s" % msg)
 
                 registry.fsk_router.incoming_message(address, msg)
                 handled = True
             except OpenThings.OpenThingsException:
-                print("Can't decode payload:%s" % payload)
+                logger.debug("Can't decode payload : %s" % payload)
 
         if handled == True: break
-        if time.time() > timeout: break
+        if time.time() > timeout:
+            logger.debug("Timeout while wating for payload")
+            break
     radio.standby()
     return handled
 
