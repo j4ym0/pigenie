@@ -498,6 +498,7 @@ class OOKSwitch(LegacyDevice):
         self.radio_config.inner_times = 8
         self.capabilities.switch = True
         self.capabilities.receive = True
+        onoff = False
 
     def __repr__(self):
         return "OOKSwitch(%s,%s)" % (str(hex(self.device_id[0])), str(hex(self.device_id[1])))
@@ -515,6 +516,7 @@ class OOKSwitch(LegacyDevice):
         #send a couple of times
         for x in range(0, 4):
             self.send_message(payload)
+        self.onoff = True
 
     def turn_off(self):
         #TODO: should this be here, or in LegacyDevice???
@@ -528,12 +530,16 @@ class OOKSwitch(LegacyDevice):
         #send a couple of times
         for x in range(0, 4):
             self.send_message(payload)
+        self.onoff = False
 
     def set_switch(self, state):
         if state:
             self.turn_on()
         else:
             self.turn_off()
+
+    def get_last_state(self):
+        return self.onoff
 
 
 class ENER002(OOKSwitch):
