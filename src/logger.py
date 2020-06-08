@@ -31,7 +31,7 @@ def verbose(msg):
     global log_file
 
     if cfg.log_level > 4:
-        msg = get_timestamp()
+        msg = get_timestamp() + msg
 
     if cfg.log_level > 3:
         if not (log_file is None):
@@ -43,7 +43,7 @@ def debug(msg):
     global log_file
 
     if cfg.log_level > 4:
-        msg = get_timestamp()
+        msg = get_timestamp() + msg
 
     if cfg.log_level > 2:
         if not (log_file is None):
@@ -55,7 +55,7 @@ def info(msg):
     global log_file
 
     if cfg.log_level > 4:
-        msg = get_timestamp()
+        msg = get_timestamp() + msg
 
     if cfg.log_level > 2:
         if not (log_file is None):
@@ -67,7 +67,7 @@ def warning(msg):
     global log_file
 
     if cfg.log_level > 4:
-        msg = get_timestamp()
+        msg = get_timestamp() + msg
 
     if not (log_file is None):
         log_file.write(msg + '\n')
