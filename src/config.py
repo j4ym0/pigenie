@@ -3,12 +3,12 @@
 #
 # edit this file with your own config defautl should work for most people
 #
-
+#
 #
 # General stuff for setting up app
 #
-log_level               = 3             # 1 - 4
-                                        # 1 absolut minimum (only warnings)
+log_level               = 1             # 1 - 4
+                                        # 1 warnings and dashboard
                                         # 2 warnings and Information
                                         # 3 warnings, info and debuging
                                         # 4 everything
@@ -24,7 +24,7 @@ telemetry               = False         # send some data back to jmoapps, this i
                                         # set to False if you dont wnat to send any data black
                                         # no personal data will be stored only deviceid, current, voltage and battery
 
-use_smoothing           = True          # if the sockets should use a smoothed watts, this smooths the spikes a troffs
+use_smoothing           = True          # if the sockets should use a smoothed watts, this smooths the spikes a troffs in genaration
 smoothing_fast_init     = True          # when using smoothing, fast init will backfill the cache with the first value it receives
 base_watts              = 100           # base watts that are used all the time. you alarm, phone, router smoke detector thay all add up
 
