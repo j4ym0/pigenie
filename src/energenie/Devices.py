@@ -498,7 +498,7 @@ class OOKSwitch(LegacyDevice):
         self.radio_config.inner_times = 8
         self.capabilities.switch = True
         self.capabilities.receive = True
-        onoff = False
+        self.onoff = False
 
     def __repr__(self):
         return "OOKSwitch(%s,%s)" % (str(hex(self.device_id[0])), str(hex(self.device_id[1])))
