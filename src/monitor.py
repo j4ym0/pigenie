@@ -13,6 +13,7 @@ from datetime import datetime
 import api
 import tools
 import config as cfg
+import display
 
 legacy_sockets  = [
                     energenie.Devices.ENER002(0),
@@ -23,7 +24,7 @@ legacy_sockets  = [
                   ]
 
 smooth = tools.Average() # Define the smoothed genaration average
-
+display = display.Display() # define the display so we can keep it updated
 
 
 def energy_monitor_loop():
@@ -41,6 +42,7 @@ def energy_monitor_loop():
             cfg.app_all_off = True
         return False
 
+    display.emons_update(energenie.registry.devices())
     GENORATION = 0
     # check all devices in the registry and report there battery power
     for d in energenie.registry.devices():
@@ -50,7 +52,7 @@ def energy_monitor_loop():
                     # work out the power factor for later
                     pf = ((d.get_current()/240)*d.get_apparent_power())
                     # working out the watts = amps x volts
-                    GENORATION =(240*d.get_current())/(0.84) # device by power factor
+                    GENORATION = (240*d.get_current())/(0.84) # device by power factor
                     # if less than 1 watt this can be 0 as may just be the power for the meater
                     # digital meaters can use up to 3wh
                 else:
@@ -63,11 +65,8 @@ def energy_monitor_loop():
         except Exception as e:
             logger.warning(e) # print exception
 
-    supply = GENORATION - cfg.base_watts
-    if cfg.use_smoothing:
-        supply = smooth.average() - cfg.base_watts
-
-    supply = round(supply)
+    if cfg.use_smoothing: GENORATION = smooth.average()
+    supply = round(GENORATION - cfg.base_watts)
 
     if supply > 0:
         for socket in cfg.legacy_sockets:
@@ -121,6 +120,9 @@ def energy_monitor_loop():
             legacy_sockets[0].turn_off()
             cfg.app_all_off = True
 
+    display.usage_update(GENORATION, (GENORATION-supply))
+    display.sockets_update(legacy_sockets)
+    display.render(cfg.log_level)
 
 def incoming(address, message):
     #print("Handeling incoming from %s" % str(address))
@@ -159,6 +161,8 @@ if __name__ == "__main__":
     try:
         while True:
             energy_monitor_loop()
+    except KeyboardInterrupt:
+        print("Bye!")
     finally:
         energenie.finished()
         logger.verbose("Finally finished - must be an error")
