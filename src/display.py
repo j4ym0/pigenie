@@ -56,10 +56,10 @@ class Display():
             except Exception as e:
                 logger.warning(e) # print exception
 
-    def sockets_update(self, sockets):
+    def sockets_update(self, sockets, socket_cfg):
         self.socket_s = '\n'.join(['Socket Status', self.spacer()])
-        for x in range(1, 5):
-            self.socket_s = '\n'.join([self.socket_s, ''.join(['\tSocket ', str(x), ': ', 'on' if sockets[x].get_last_state() is True else 'off'])])
+        for socket in socket_cfg:
+            self.socket_s = '\n'.join([self.socket_s, ''.join(['\tSocket ', str(socket['socket']), ': ', 'on' if sockets[socket['socket']].get_last_state() is True else 'off'])])
 
     def usage_update(self, genarating, using):
         self.usage_s = 'Generating: %.2fKw/h, Consuming: %.2fKw/h' % (genarating/1000, using/1000)

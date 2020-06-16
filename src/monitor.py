@@ -124,7 +124,7 @@ def energy_monitor_loop():
             cfg.app_all_off = True
 
     display.usage_update(GENORATION, (GENORATION-supply))
-    display.sockets_update(legacy_sockets)
+    display.sockets_update(legacy_sockets, cfg.legacy_sockets)
     display.render(cfg.log_level)
 
 def incoming(address, message):
