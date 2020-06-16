@@ -14,6 +14,7 @@ import api
 import tools
 import config as cfg
 import display
+import importlib
 
 legacy_sockets  = [
                     energenie.Devices.ENER002(0),
@@ -32,7 +33,8 @@ def energy_monitor_loop():
     # daily reset function
     if not cfg.last_reset_day == datetime.now().day:
         cfg.last_reset_day = datetime.now().day
-        for socket in cfg.legacy_sockets:
+        importlib.reload(config) # reload the config file every day
+        for socket in cfg.legacy_sockets: # reset all the time counters for each legacy socket
             socket['elapsed_time'] = 0
 
     # Process any received messages from the real radio, time out after 30 s
@@ -139,7 +141,7 @@ def incoming(address, message):
 
 if __name__ == "__main__":
 
-    cfg.reset_max_time = datetime.now().day
+    cfg.last_reset_day = datetime.now().day
 
     logger.info("Starting energy monitor")
 
