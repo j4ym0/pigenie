@@ -29,8 +29,9 @@ display = display.Display() # define the display so we can keep it updated
 
 def energy_monitor_loop():
 
-    if not cfg.reset_max_time == datetime.now().day:
-        cfg.reset_max_time = datetime.now().day
+    # daily reset function
+    if not cfg.last_reset_day == datetime.now().day:
+        cfg.last_reset_day = datetime.now().day
         for socket in cfg.legacy_sockets:
             socket['elapsed_time'] = 0
 
