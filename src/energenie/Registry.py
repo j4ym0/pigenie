@@ -249,15 +249,16 @@ class Discovery():
         device_id  = address[2]
         ##print("**** wiring up registry and router for %s" % str(address))
         ci = Devices.DeviceFactory.get_device_from_id(product_id, device_id)
-        if not ci:
-            return
         self.registry.add(ci, "auto_%s_%s" % (str(hex(product_id)), str(hex(device_id))))
         self.router.add(address, ci)
 
         # Finally, forward the first message to the new device class instance
-        if forward:
-            ##print("**** routing first message to class instance")
-            ci.incoming_message(message)
+        try:
+            if forward:
+                ##print("**** routing first message to class instance")
+                ci.incoming_message(message)
+        except Exception as e:
+            return
 
         ##self.registry.list()
         ##self.router.list()
