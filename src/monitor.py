@@ -33,7 +33,7 @@ def energy_monitor_loop():
     # daily reset function
     if not cfg.last_reset_day == datetime.now().day:
         cfg.last_reset_day = datetime.now().day
-        importlib.reload(config) # reload the config file every day
+        importlib.reload(cfg) # reload the config file every day
         for socket in cfg.legacy_sockets: # reset all the time counters for each legacy socket
             socket['elapsed_time'] = 0
 
