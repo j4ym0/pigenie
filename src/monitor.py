@@ -21,7 +21,7 @@ legacy_sockets  = [
                     energenie.Devices.ENER002(1), # OOK socket programed as No. 1
                     energenie.Devices.ENER002(2), # OOK socket programed as No. 2
                     energenie.Devices.ENER002(3), # OOK socket programed as No. 3
-                    energenie.Devices.ENER002(4), # OOK socket programed as No. 4
+                    energenie.Devices.ENER002(4), # OOK socket programed as No. 4 
                   ]
 
 smooth = tools.Average() # Define the smoothed genaration average

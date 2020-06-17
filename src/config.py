@@ -32,14 +32,15 @@ base_watts              = 100           # base watts that are used all the time.
 #
 # legacy socket programming
 #
-#   socket : int    // socket number 1-4 OOK sockets
-#   watts : int     // max watts the socket will draw (2Kwh = 2000)
-#   max_time : int  // the max time the device should be on in the day
-#                   // 0 is none or int in seconds
+#   description : str // socket description, show in dashboard if set
+#   socket : int      // socket number 1-4 OOK sockets
+#   watts : int       // max watts the item connected to the socket will draw (2Kwh = 2000)
+#   max_time : int    // the max time the device should be on in the day
+#                     // 0 is no limit or int in seconds
 #
 #   priority put the most consuming at the top or the device you want on the most
 #
 legacy_sockets      = [
-                        {'socket' : 2, 'watts' : 1000, 'max_time' : 7200},
-                        {'socket' : 1, 'watts' : 360, 'max_time' : 0 },
+                        {'description' : 'Water Heater', 'socket' : 2, 'watts' : 1000, 'max_time' : 7200},
+                        {'description' : '', 'socket' : 1, 'watts' : 360, 'max_time' : 0 },
                       ]

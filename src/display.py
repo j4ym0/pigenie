@@ -59,7 +59,7 @@ class Display():
     def sockets_update(self, sockets, socket_cfg):
         self.socket_s = '\n'.join(['Socket Status', self.spacer()])
         for socket in socket_cfg:
-            self.socket_s = '\n'.join([self.socket_s, ''.join(['\tSocket ', str(socket['socket']), ': ', 'on' if sockets[socket['socket']].get_last_state() is True else 'off'])])
+            self.socket_s = '\n'.join([self.socket_s, ''.join(['\t', ' '.join(['Socket', str(socket['socket'])]) if socket['description'] is '' else socket['description'], ': ', 'on' if sockets[socket['socket']].get_last_state() is True else 'off'])])
 
     def usage_update(self, genarating, using):
         self.usage_s = 'Generating: %.2fKw/h, Consuming: %.2fKw/h' % (genarating/1000, using/1000)
