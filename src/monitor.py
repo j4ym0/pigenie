@@ -21,7 +21,7 @@ legacy_sockets  = [
                     energenie.Devices.ENER002(1), # OOK socket programed as No. 1
                     energenie.Devices.ENER002(2), # OOK socket programed as No. 2
                     energenie.Devices.ENER002(3), # OOK socket programed as No. 3
-                    energenie.Devices.ENER002(4), # OOK socket programed as No. 4 
+                    energenie.Devices.ENER002(4), # OOK socket programed as No. 4
                   ]
 
 smooth = tools.Average() # Define the smoothed genaration average
@@ -39,7 +39,7 @@ def energy_monitor_loop():
 
     # Process any received messages from the real radio, time out after 30 s
     if not energenie.loop(cfg.receive_wait):
-        logger.debug("Timeout, nothing received")
+        logger.info("Timeout, nothing received")
         if not cfg.app_all_off:
             legacy_sockets[0].turn_off()
             cfg.app_all_off = True

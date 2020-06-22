@@ -57,7 +57,7 @@ def info(msg):
     if cfg.log_level > 4:
         msg = get_timestamp() + msg
 
-    if cfg.log_level > 2:
+    if cfg.log_level > 1:
         if not (log_file is None):
             log_file.write(msg + '\n')
         print(msg)
