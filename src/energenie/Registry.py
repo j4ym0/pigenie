@@ -196,14 +196,17 @@ class Router():
         ##print("router.incoming addr=%s" % str(address))
         ##print("routes:%s" % str(self.routes))
 
-        if address in self.routes:
-            ci = self.routes[address]
-            ci.incoming_message(message)
+        try:
+            if address in self.routes:
+                ci = self.routes[address]
+                ci.incoming_message(message)
 
-        else: # address has no route
-            print("No route to an object, for device:%s" % str(address))
-            #TODO: Could consult registry and squash if registry knows it
-            self.handle_unknown(address, message)
+            else: # address has no route
+                print("No route to an object, for device:%s" % str(address))
+                #TODO: Could consult registry and squash if registry knows it
+                self.handle_unknown(address, message)
+        except Exception as e:
+            pass 
 
     def when_incoming(self, callback):
         self.incoming_cb = callback
