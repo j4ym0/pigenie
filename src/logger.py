@@ -30,19 +30,7 @@ def trace(msg):
 def verbose(msg):
     global log_file
 
-    if cfg.log_level > 4:
-        msg = get_timestamp() + msg
-
     if cfg.log_level > 3:
-        if not (log_file is None):
-            log_file.write(msg + '\n')
-        print(msg)
-
-
-def debug(msg):
-    global log_file
-
-    if cfg.log_level > 4:
         msg = get_timestamp() + msg
 
     if cfg.log_level > 2:
@@ -51,13 +39,25 @@ def debug(msg):
         print(msg)
 
 
-def info(msg):
+def debug(msg):
     global log_file
 
-    if cfg.log_level > 4:
+    if cfg.log_level > 3:
         msg = get_timestamp() + msg
 
     if cfg.log_level > 1:
+        if not (log_file is None):
+            log_file.write(msg + '\n')
+        print(msg)
+
+
+def info(msg):
+    global log_file
+
+    if cfg.log_level > 3:
+        msg = get_timestamp() + msg
+
+    if cfg.log_level > 0:
         if not (log_file is None):
             log_file.write(msg + '\n')
         print(msg)

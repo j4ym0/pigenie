@@ -7,7 +7,7 @@
 #
 # General stuff for setting up app
 #
-log_level               = 2             # 1 - 4
+log_level               = 2             # 1 - 4 or 0 for warnings only
                                         # 1 warnings and dashboard
                                         # 2 warnings and Information
                                         # 3 warnings, info and debuging
