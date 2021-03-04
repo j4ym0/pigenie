@@ -41,6 +41,7 @@ def energy_monitor_loop():
     if not energenie.loop(cfg.receive_wait):
         logger.info("Timeout, nothing received")
         cfg.TIMEOUT_IRRITATION += 1
+        logger.debug("Timeout irritation %i" % (cfg.TIMEOUT_IRRITATION))
         if not cfg.app_all_off and cfg.TIMEOUT_IRRITATION > 5:
             logger.info("Nothing received for a while. Turning all off")
             legacy_sockets[0].turn_off()
