@@ -40,10 +40,14 @@ def energy_monitor_loop():
     # Process any received messages from the real radio, time out after 30 s
     if not energenie.loop(cfg.receive_wait):
         logger.info("Timeout, nothing received")
-        if not cfg.app_all_off:
+        cfg.TIMEOUT_IRRITATION += 1
+        if not cfg.app_all_off and cfg.TIMEOUT_IRRITATION > 5:
+            logger.info("Nothing received for a while. Turning all off")
             legacy_sockets[0].turn_off()
             cfg.app_all_off = True
         return False
+    else:
+        cfg.TIMEOUT_IRRITATION = 0
 
     display.emons_update(energenie.registry.devices())
     GENORATION = 0
@@ -141,7 +145,9 @@ def incoming(address, message):
 
 if __name__ == "__main__":
 
+    # init global vars
     cfg.last_reset_day = datetime.now().day
+    cfg.TIMEOUT_IRRITATION = 0
 
     logger.info("Starting energy monitor")
 
