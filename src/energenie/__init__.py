@@ -85,11 +85,11 @@ def loop(receive_time=30):
                 registry.fsk_router.incoming_message(address, msg)
                 handled = True
             except OpenThings.OpenThingsException:
-                logger.debug("Can't decode payload : %s" % payload)
+                logger.verbose("Can't decode payload : %s" % payload)
 
         if handled == True: break
         if time.time() > timeout:
-            logger.debug("Timeout while wating for payload")
+            logger.verbose("Timeout while wating for payload")
             break
     radio.standby()
     return handled
