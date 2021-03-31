@@ -176,5 +176,10 @@ if __name__ == "__main__":
     finally:
         energenie.finished()
         logger.verbose("Finally finished - must be an error")
+        try:
+            energenie.cleanup()  # forceably clean up GPIO lines
+            logger.verbose("Cleaned up GPIO")
+        finally:
+            logger.verbose("Could not cleanup GPIO")
 
 # END
