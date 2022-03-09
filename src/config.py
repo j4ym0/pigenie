@@ -41,6 +41,6 @@ base_watts              = 100           # base watts that are used all the time.
 #   priority put the most consuming at the top or the device you want on the most
 #
 legacy_sockets      = [
-                        {'description' : 'Water Heater', 'socket' : 2, 'watts' : 1000, 'max_time' : 7200},
                         {'description' : '', 'socket' : 1, 'watts' : 500, 'max_time' : 0 },
+                        {'description' : 'Water Heater', 'socket' : 2, 'watts' : 1000, 'max_time' : 7200},
                       ]
