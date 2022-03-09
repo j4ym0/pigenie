@@ -42,5 +42,5 @@ base_watts              = 100           # base watts that are used all the time.
 #
 legacy_sockets      = [
                         {'description' : 'Water Heater', 'socket' : 2, 'watts' : 1000, 'max_time' : 7200},
-                        {'description' : '', 'socket' : 1, 'watts' : 360, 'max_time' : 0 },
+                        {'description' : '', 'socket' : 1, 'watts' : 500, 'max_time' : 0 },
                       ]
