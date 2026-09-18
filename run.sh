@@ -1,4 +1,5 @@
 #! /bin/bash
+cd "${0%/*}"
 
 if [ ! -f src/energenie/drv/radio_rpi.so ]; then
     echo "Drivers not found!"
